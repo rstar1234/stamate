@@ -8,6 +8,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Drawing;
+using OpenTK.Graphics;
 
 namespace stamate
 {
@@ -17,6 +18,11 @@ namespace stamate
         float angle;
         bool showCube = true;
         KeyboardState lastKeyPress;
+        int red = 1;
+        int blue = 1;
+        int green = 1;
+        KeyboardState keyboard = OpenTK.Input.Keyboard.GetState();
+        MouseState mouse = OpenTK.Input.Mouse.GetState();
 
         // Constructor.
         public Window3D() : base(800, 600)
@@ -31,7 +37,7 @@ namespace stamate
         {
             base.OnLoad(e);
 
-            GL.ClearColor(Color.Blue);
+            GL.ClearColor(Color.Black);
             GL.Enable(EnableCap.DepthTest);
         }
 
@@ -58,8 +64,7 @@ namespace stamate
         {
             base.OnUpdateFrame(e);
 
-            KeyboardState keyboard = OpenTK.Input.Keyboard.GetState();
-            MouseState mouse = OpenTK.Input.Mouse.GetState();
+           
 
             // Se utilizeaza mecanismul de control input oferit de OpenTK (include perifcerice multiple, mai ales pentru gaming - gamepads, joysticks, etc.).
             if (keyboard[OpenTK.Input.Key.Escape])
@@ -78,6 +83,18 @@ namespace stamate
                 {
                     showCube = true;
                 }
+            }
+           
+            else if (keyboard[OpenTK.Input.Key.R] && !keyboard.Equals(lastKeyPress) && red <= 255) {
+                red++;
+            }
+            else if (keyboard[Key.B] && !keyboard.Equals(lastKeyPress) && blue <= 255)
+            {
+                blue++;
+            }
+            else if (keyboard[Key.G] && !keyboard.Equals(lastKeyPress) && green <= 255)
+            {
+                green++;
             }
             lastKeyPress = keyboard;
 
@@ -114,8 +131,8 @@ namespace stamate
             // Exportăm controlul randării obiectelor către o metodă externă (modularizare).
             if (showCube == true)
             {
-                DrawCube();
                 DrawAxes_OLD();
+                DrawTriangle();
             }
 
             SwapBuffers();
@@ -126,67 +143,36 @@ namespace stamate
         {
             GL.Begin(PrimitiveType.Lines);
 
+
             // X
             GL.Color3(Color.Red);
             GL.Vertex3(0, 0, 0);
-            GL.Vertex3(20, 0, 0);
+            GL.Vertex3(50, 0, 0);
 
             // Y
             GL.Color3(Color.Blue);
             GL.Vertex3(0, 0, 0);
-            GL.Vertex3(0, 20, 0);
+            GL.Vertex3(0, 50, 0);
 
             // Z
             GL.Color3(Color.Yellow);
             GL.Vertex3(0, 0, 0);
-            GL.Vertex3(0, 0, 20);
+            GL.Vertex3(0, 0, 50);
 
 
             GL.End();
         }
 
         // Utilizăm modul imediat!!!
-        private void DrawCube()
+
+        private void DrawTriangle()
         {
-            GL.Begin(PrimitiveType.Quads);
-
-            GL.Color3(Color.Silver);
-            GL.Vertex3(-1.0f, -1.0f, -1.0f);
-            GL.Vertex3(-1.0f, 1.0f, -1.0f);
-            GL.Vertex3(1.0f, 1.0f, -1.0f);
-            GL.Vertex3(1.0f, -1.0f, -1.0f);
-
-            GL.Color3(Color.Honeydew);
-            GL.Vertex3(-1.0f, -1.0f, -1.0f);
-            GL.Vertex3(1.0f, -1.0f, -1.0f);
-            GL.Vertex3(1.0f, -1.0f, 1.0f);
-            GL.Vertex3(-1.0f, -1.0f, 1.0f);
-
-            GL.Color3(Color.Moccasin);
-
-            GL.Vertex3(-1.0f, -1.0f, -1.0f);
-            GL.Vertex3(-1.0f, -1.0f, 1.0f);
-            GL.Vertex3(-1.0f, 1.0f, 1.0f);
-            GL.Vertex3(-1.0f, 1.0f, -1.0f);
-
-            GL.Color3(Color.IndianRed);
-            GL.Vertex3(-1.0f, -1.0f, 1.0f);
-            GL.Vertex3(1.0f, -1.0f, 1.0f);
-            GL.Vertex3(1.0f, 1.0f, 1.0f);
-            GL.Vertex3(-1.0f, 1.0f, 1.0f);
-
-            GL.Color3(Color.PaleVioletRed);
-            GL.Vertex3(-1.0f, 1.0f, -1.0f);
-            GL.Vertex3(-1.0f, 1.0f, 1.0f);
-            GL.Vertex3(1.0f, 1.0f, 1.0f);
-            GL.Vertex3(1.0f, 1.0f, -1.0f);
-
-            GL.Color3(Color.ForestGreen);
-            GL.Vertex3(1.0f, -1.0f, -1.0f);
-            GL.Vertex3(1.0f, 1.0f, -1.0f);
-            GL.Vertex3(1.0f, 1.0f, 1.0f);
-            GL.Vertex3(1.0f, -1.0f, 1.0f);
-
+            Color4 color = new Color4(red, green, blue, 0);
+            GL.Begin(PrimitiveType.Triangles);
+            GL.Color4(color);
+            GL.Vertex3(9, 3, 0);
+            GL.Vertex3(20, -3, 0);
+            GL.Vertex3(15, 5, 0);
             GL.End();
         }
     }
