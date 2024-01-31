@@ -36,3 +36,30 @@ pentru aceștia?
 - aspect - raportul lățime / înălțime al câmpului vizual
 - zNear și zFar - distanțe
 - result - o matrice de proiecție care transformă spațiul din cadrul camerei în spațiu raster
+
+
+# Laboratorul 3
+
+⚫ Care este ordinea de desenare a vertexurilor pentru aceste metode(orar sau anti-orar)?
+
+- Anti-orar
+
+⚫ Ce este anti-aliasing? Prezentați această tehnică pe scurt.
+
+- Anti-aliasing este o tehnică prin care se poate îmbunătății aspectul unei imagini cu o rezoluție mare la o rezoluție mai mică.
+
+⚫ Care este efectul rulării comenzii GL.LineWidth(float)?
+- Setează grosimea liniei ce urmează a fi desenată
+⚫ Dar pentru GL.PointSize(float)?
+- Setează mărimea punctului ce urmează a fi desenat
+⚫ Funcționează în interiorul unei zone GL.Begin()?
+- Nu
+
+⚫ Care este efectul utilizării directivei LineLoop atunci când sunt desenate segmente de dreaptă multiple în OpenGL?
+- Se vor desena niște linii conectate, ultimul vârf fiind conectat cu primul
+⚫ Care este efectul utilizării directivei LineStrip atunci când
+desenate segmente de dreaptă multiple în OpenGL?
+- Se vor desena niște linii conectate, toate vârfurile în afară de primele două fiind conectate
+⚫ Ce reprezintă un gradient de culoare? Cum se obține acesta în
+OpenGL?
+- Un gradient este o progresie graduală de culori și nuanțe, de regulă de la o culoare la o altă culoare sau de la o nuanță la o altă nuanță ale aceleiași culori. Se obține în OpenGL prin setarea unei culori diferite pentru fiecare vârf.
